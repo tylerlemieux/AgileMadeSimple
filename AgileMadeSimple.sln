@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AgileMadeSimple", "src\AgileMadeSimple\AgileMadeSimple.xproj", "{44A76E60-4EF6-4DA3-A8DC-D53B6053EC62}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AgileMadeSimple.Models", "src\AgileMadeSimple.Models\AgileMadeSimple.Models.xproj", "{992B3859-5377-4D9D-921D-58E40B7D3F30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +24,16 @@ Global
 		{44A76E60-4EF6-4DA3-A8DC-D53B6053EC62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44A76E60-4EF6-4DA3-A8DC-D53B6053EC62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44A76E60-4EF6-4DA3-A8DC-D53B6053EC62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{992B3859-5377-4D9D-921D-58E40B7D3F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{992B3859-5377-4D9D-921D-58E40B7D3F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{992B3859-5377-4D9D-921D-58E40B7D3F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{992B3859-5377-4D9D-921D-58E40B7D3F30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{44A76E60-4EF6-4DA3-A8DC-D53B6053EC62} = {15279542-92F2-4AC2-AC3D-1AAD39347BEF}
+		{992B3859-5377-4D9D-921D-58E40B7D3F30} = {15279542-92F2-4AC2-AC3D-1AAD39347BEF}
 	EndGlobalSection
 EndGlobal

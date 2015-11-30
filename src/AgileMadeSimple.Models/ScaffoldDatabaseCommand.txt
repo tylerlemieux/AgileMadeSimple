@@ -1,0 +1,2 @@
+﻿In AgileMadeSimple.Models run the following command:
+dnx ef dbcontext scaffold "Data Source=Tyler-PC;Initial Catalog=AgileMadeSimple;integrated security=true;multipleactiveresultsets=true;" EntityFramework.MicrosoftSqlServer
