@@ -27,7 +27,10 @@ namespace AgileMadeSimple
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddCaching();
             services.AddMvc();
+            services.AddSession();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +59,9 @@ namespace AgileMadeSimple
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseSession();
+            
         }
 
         // Entry point for the application.
