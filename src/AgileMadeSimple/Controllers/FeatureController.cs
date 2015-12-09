@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using AgileMadeSimple.Models;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,34 +14,72 @@ namespace AgileMadeSimple.Controllers
     {
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Feature> Get()
         {
-            return new string[] { "value1", "value2" };
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                return context.Feature.Select(f => f);
+            }
+
+        }
+
+        [HttpGet("ByEpic/{epicId}")]
+        public IEnumerable<Feature> GetFeatureByEpic(int epicId)
+        {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                return context.Feature.Where(f => f.EpicID == epicId).Select(f => f);
+            }
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{featureId}")]
+        public Feature Get(int featureId)
         {
-            return "value";
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                Feature feature = context.Feature.Where(f => f.FeatureID == featureId).First();
+                return feature;
+            }
+
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public Feature Post([FromBody]Feature feature)
         {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                context.Feature.Add(feature);
+                context.SaveChanges();
+                return feature;
+            }
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPut("{featureId}")]
+        public Feature Put(int featureId, [FromBody]Feature feature)
         {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                context.Feature.Update(feature);
+                context.SaveChanges();
+                return feature;
+            }
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{featureId}")]
+        public void Delete(int featureId)
         {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                Feature feature = context.Feature.Where(f => f.FeatureID == featureId).First();
+                IEnumerable<FeatureTag> featureTag = context.FeatureTag.Where(ft => ft.FeatureID == featureId).Select(ft => ft);
+                context.Remove(feature);
+                context.RemoveRange(featureTag);
+                context.SaveChanges();
+            }
         }
     }
 }
