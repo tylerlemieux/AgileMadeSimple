@@ -28,7 +28,7 @@ namespace AgileMadeSimple.Controllers
                     user.Salt = Authentication.CreateSalt(25);
                     user.Name = userInfo.Name;
                     user.Username = userInfo.Username;
-                    user.Password = userInfo.Password;
+                    user.Password = Authentication.CalculatePasswordHash(userInfo.Password, user.Salt);
                     user.Email = userInfo.Email;
 
                     context.User.Add(user);

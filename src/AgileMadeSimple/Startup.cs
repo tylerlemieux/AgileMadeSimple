@@ -29,8 +29,8 @@ namespace AgileMadeSimple
         {
             // Add framework services.
             services.AddCaching();
-            services.AddMvc();
             services.AddSession();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +52,7 @@ namespace AgileMadeSimple
             app.UseIISPlatformHandler();
 
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -60,7 +60,6 @@ namespace AgileMadeSimple
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.UseSession();
             
         }
 
