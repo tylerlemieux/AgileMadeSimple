@@ -1,4 +1,7 @@
-﻿angular.module('AgileMadeSimple', ['ui.bootstrap', 'ngRoute'])
+﻿angular.module('AgileMadeSimple', ['ui.bootstrap', 'ngRoute',
+    //My custom modules
+    'User'
+])
 .config(['$routeProvider',
   function($routeProvider) {
       $routeProvider.
@@ -6,18 +9,21 @@
             templateUrl: 'app/index.html',
             controller: 'AgileMadeSimpleController',
         }).
-        when('/Sample', {
-            templateUrl: 'sample.html',
-            controller: 'SampleController'
-        }).
-        when('/SampleTwo/:sampleTwoId', {
-            templateUrl: 'sample-two.html',
-            controller: 'SampleTwoController'
-        }).
         otherwise({
             redirectTo: '/'
         });
   }])
-.controller('AgileMadeSimpleController', ['$scope', '$routeParams', function ($scope, $routeParams) {
+.controller('AgileMadeSimpleController', ['$scope', '$routeParams', '$location', '$http', function ($scope, $routeParams, $location, $http) {
+    $scope.User = null;
 
+    $http.get('api/User/CurrentUser').then(function (response) {
+        $scope.User = response.data;
+    });
+
+    $scope.logout = function () {
+        $http.delete('api/User/Logout').then(function (response) {
+            $scope.User = null;
+            $location.url('/#/');
+        });
+    };
 }]);

@@ -12,7 +12,7 @@
     <script src="~/lib/angular-route/angular-route.min.js"></script>
     <script src="~/lib/angular-bootstrap/ui-bootstrap.min.js"></script>
 
-    <script src="~/app/app.js"></script>
+
 </head>
 <body ng-controller="AgileMadeSimpleController">
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -24,12 +24,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <a class="navbar-brand" href="#">Agile Made Simple</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+
+                    <li ng-if="User === null"><a href="#/Registration">Register</a></li>
+                    <li ng-if="User === null"><a href="#/Login">Login</a></li>
+
+                    <li ng-if="User !== null"><a href="#/Team">Team</a></li>
+                    <li ng-if="User !== null"><a href="#/EnterprisePlanning">Enterprise</a></li>
+                    <li ng-if="User !== null"><a href="#/">Project Planning</a></li>
+                    <li ng-if="User !== null"><a href="#/">Current Iteration</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-if="User !== null"><a>{{User.Username}}</a></li>
                 </ul>
             </div>
         </div>
@@ -42,5 +51,7 @@
         </footer>
     </div>
 
+    <script src="~/app/app.js"></script>
+    <script src="~/app/User/User.js"></script>
 </body>
 </html>
