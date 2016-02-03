@@ -19,7 +19,7 @@
                   controller: 'RegistrationController',
               }).
               when('/Login', {
-                  templateUrl: 'login.html',
+                  templateUrl: 'app/User/login.html',
                   controller: 'LoginController'
               });
     }])

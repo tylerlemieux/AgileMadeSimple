@@ -1,6 +1,7 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../gulpfile.js" />
 /// <reference path="app/app.js" />
+/// <reference path="app/enterpriseplanning/javascript.js" />
 /// <reference path="app/user/user.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/angular/angular.js" />

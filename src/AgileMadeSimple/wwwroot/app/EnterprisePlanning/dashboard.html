@@ -1,0 +1,49 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Epic Name</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="epic in epics">
+                        <td>{{epic.Name}}</td>
+                        <td><a href="#">Open Project Planning</a></td>
+                        <td><a href="#">Open Current Sprint</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div id="addNewProject">
+                Add new projects here
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!--Are to manage project states-->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="2">Add and delete project states here.  Please note if there is a project in a state, you will be unable to delete it</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="state in states">
+                        <td>{{state.Name}}</td>
+                        <td><span ng-click="deleteState(state.StateID)" class="glyphicon glyphicon-trash"></span></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" ng-model="newStateName" /></td>
+                        <td><span class="glyphicon glyphicon-plus" ng-click="addState()"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

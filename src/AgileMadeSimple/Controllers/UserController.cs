@@ -90,7 +90,7 @@ namespace AgileMadeSimple.Controllers
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
                 int? userId = HttpContext.Session.GetInt32("UserID");
-                return userId == null ? null : context.User.Where(u => u.UserID == userId).First();
+                return userId == null ? null : context.User.Where(u => u.UserID == userId).FirstOrDefault();
             }
         }
 

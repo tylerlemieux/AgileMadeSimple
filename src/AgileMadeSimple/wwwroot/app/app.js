@@ -1,6 +1,6 @@
 ﻿angular.module('AgileMadeSimple', ['ui.bootstrap', 'ngRoute',
     //My custom modules
-    'User'
+    'User', 'EnterprisePlanning'
 ])
 .config(['$routeProvider',
   function($routeProvider) {
@@ -17,7 +17,7 @@
     $scope.User = null;
 
     $http.get('api/User/CurrentUser').then(function (response) {
-        $scope.User = response.data;
+        $scope.User = response.data == "" ? null : response.data;
     });
 
     $scope.logout = function () {

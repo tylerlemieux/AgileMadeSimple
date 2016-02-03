@@ -33,9 +33,10 @@
                     <li ng-if="User === null"><a href="#/Login">Login</a></li>
 
                     <li ng-if="User !== null"><a href="#/Team">Team</a></li>
+                    <li ng-if="User !== null"><a href="#/SprintWall">Sprint Wall</a></li>
                     <li ng-if="User !== null"><a href="#/EnterprisePlanning">Enterprise</a></li>
                     <li ng-if="User !== null"><a href="#/">Project Planning</a></li>
-                    <li ng-if="User !== null"><a href="#/">Current Iteration</a></li>
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-if="User !== null"><a>{{User.Username}}</a></li>
@@ -53,5 +54,6 @@
 
     <script src="~/app/app.js"></script>
     <script src="~/app/User/User.js"></script>
+    <script src="~/app/EnterprisePlanning/EnterprisePlanning.js"></script>
 </body>
 </html>

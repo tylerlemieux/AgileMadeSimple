@@ -89,5 +89,39 @@ namespace AgileMadeSimple.Controllers
                 context.SaveChanges();
             }
         }
+
+        [HttpGet("States/{teamId}")]
+        public IEnumerable<States> getEpicStates(int teamId)
+        {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                IEnumerable<States> states = context.States.Where(s => s.Type == "Epic" && teamId == s.TeamID).OrderBy(s => s.Order).Select(s => s);
+                return states;
+            }
+        }
+
+        [HttpPost("States/{teamId}")]
+        public IEnumerable<States> addEpicState([FromBody] States state, int teamId)
+        {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                state.Type = "Epic";
+                context.States.Add(state);
+
+                return context.States.Where(s => s.Type == "Epic" && teamId == s.TeamID).OrderBy(s => s.Order).Select(s => s);
+            }
+        }
+
+        [HttpDelete("States/{stateId}")]
+        public IEnumerable<States> deleteEpicState(int stateId)
+        {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                States state = context.States.Where(s => s.StateID == stateId).First();
+                context.States.Remove(state);
+
+                return context.States.Where(s => s.Type == "Epic").OrderBy(s => s.Order).Select(s => s);
+            }
+        }
     }
 }
