@@ -46,8 +46,25 @@
                 });
         }
     }])
-    .controller('LoginController', ['$scope', '$http', function ($scope, $http) {
+    .controller('LoginController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+        $scope.showLoginError = false;
 
+        $scope.login = function () {
+            var loginVM = {
+                Username: $scope.username,
+                Password: $scope.password
+            };
+
+            $http.post('api/User/Login', loginVM)
+                .then(function (response) {
+                    if (response.data != null && response.data !== "") {
+                        $scope.$parent.User = response.data;
+                        $location.url('/#/');
+                    }
+                }, function () {
+                    $scope.showLoginError = true;
+                });
+        };
     }]);
 
 })();
