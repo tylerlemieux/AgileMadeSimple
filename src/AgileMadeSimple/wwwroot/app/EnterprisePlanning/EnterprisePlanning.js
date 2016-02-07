@@ -1,4 +1,4 @@
-﻿angular.module('EnterprisePlanning', ['ngRoute', 'ui.bootstrap'])
+﻿angular.module('EnterprisePlanning', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
 .config(['$routeProvider',
 
         function ($routeProvider) {
@@ -8,7 +8,7 @@
                   controller: 'EnterprisePlanningController',
               });
         }])
-.controller('EnterprisePlanningController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+.controller('EnterprisePlanningController', ['$scope', '$http', '$location', '$uibModal', function ($scope, $http, $location, $uibModal) {
     $scope.epics = [{
         EpicID: 1,
         Name: "Epic Sample 1"
@@ -20,9 +20,9 @@
     function getStates() {
         $http.get('api/Epic/States/1').then(function (result) {
             $scope.states = result.data;
-            
-        })
-    }
+
+        });
+    };
 
     getStates();
 
@@ -42,7 +42,44 @@
     $scope.deleteState = function (stateId) {
         $http.delete('api/Epic/States/' + stateId).then(function (result) {
             $scope.states = result.data;
-        })
-    }
+        });
+    };
 
+    $scope.openAddProjectModal = function () {
+        var modal = $uibModal.open({
+            templateUrl: 'addProjectModal.html',
+            controller: 'AddProjectController'
+        });
+
+        modal.result.then(function (epic) {
+            $scope.epics.push(epic);
+        }, function () {
+
+        });
+    };
+
+}])
+.controller('AddProjectController', ['$scope', '$http', '$uibModalInstance', function ($scope, $http, $uibModalInstance) {
+    $scope.create = function () {
+        var epic = {
+            Name: $scope.name,
+            Description: $scope.description,
+            TeamID: 1
+        };
+
+        $http.post('api/Epic', epic).then(function (response) {
+                if (response.data != null && response.data !== "") {
+                    $uibModalInstance.close(response.data);
+                }
+            },
+            function () {
+
+            });
+
+
+    };
+
+    $scope.close = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
 }]);

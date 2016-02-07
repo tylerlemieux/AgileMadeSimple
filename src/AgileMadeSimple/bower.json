@@ -1,11 +1,15 @@
 {
   "dependencies": {
-    "bootstrap": "3.3.5",
-    "angular": "1.4.6",
-    "angular-bootstrap": "0.13.4",
-    "angular-route": "1.4.6",
-    "ui-bootstrap": "0.14.3"
+    "bootstrap": "*",
+    "angular": "*",
+    "angular-bootstrap": "*",
+    "angular-route": "*",
+    "angular-animate": "*",
+    "angular-resource": "*"
   },
   "name": "ASP.NET",
-  "private": true
+  "private": true,
+  "resolutions": {
+    "angular": "*"
+  }
 }

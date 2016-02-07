@@ -35,6 +35,7 @@ namespace AgileMadeSimple.Controllers
         {
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
+                epic.StateID = 2;
                 context.Epic.Add(epic);
                 context.SaveChanges();
                 return epic;

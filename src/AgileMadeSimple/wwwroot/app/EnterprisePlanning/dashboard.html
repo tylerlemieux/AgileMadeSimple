@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-6 col-sm-12">
             <div id="addNewProject">
-                Add new projects here
+                <button class="btn btn-lg btn-success center-block" style="margin-top: 25px" ng-click="openAddProjectModal()"><span class="glyphicon glyphicon-plus-sign"></span> <br />Add New Project</button>
             </div>
         </div>
     </div>
@@ -47,3 +47,24 @@
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="addProjectModal.html">
+    <div class="modal-header">
+        Add New Project
+    </div>
+    <div class="modal-body">
+        <input class="form-control" type="text" placeholder="Project Name" ng-model="name" />
+        <input class="form-control" type="text" placeholder="Description" ng-model="description" />
+        <!--TODO add team selection-->
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-sm btn-primary" ng-click="create()">Add</button>
+        <button class="btn btn-sm btn-default" ng-click="close()">Close</button>
+    </div>
+</script>
+
+<style>
+    #addNewProject{
+      
+    }
+</style>
