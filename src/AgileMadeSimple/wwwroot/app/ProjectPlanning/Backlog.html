@@ -1,6 +1,6 @@
 ﻿<div class="row">
     <div class="col-md-12">
-        <p>Add Story</p>
+        <button class="btn btn-success" ng-click="openStory()">Add Story</button>
     </div>
 </div>
 <div class="row">
@@ -10,16 +10,82 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Points</th>
+                <th>States</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="story in stories">
-                <td>{{story.StoryID}}</td>
+                <td>S-{{story.StoryID}}</td>
                 <td>{{story.Name}}</td>
                 <td>{{story.Points}}</td>
-                <td><a>More Details</a></td>
+                <td>Placeholder for story state</td>
+
+                <td><a ng-click="openStory(story)">More Details</a></td>
             </tr>
         </tbody>
     </table>
+
+    <!--Directive for slide out-->
+    <div pageslide ps-open="sidePanelOpen" ps-side="right" ps-push="true" ps-cloak="false" ps-size="500px">
+        <div style="padding:20px;">
+            <button class="btn btn-danger" ng-click="closePanel()">Close</button>
+            <h3 editable-text="currentOpenStory.Name">{{ currentOpenStory.Name || 'Enter Story Name' }}</h3>
+            <b>Details:</b><br />
+            <a editable-textarea="currentOpenStory.Description" e-rows="5" e-cols="50"><pre>{{currentOpenStory.Description || 'Enter Description'}}</pre></a>
+            <br />
+            <b>Acceptance Criteria:</b><br />
+            <a editable-textarea="currentOpenStory.AcceptanceCriteria" e-rows="5" e-cols="50"><pre>{{currentOpenStory.AcceptanceCriteria || 'Enter Acceptance Criteria' }}</pre></a>
+            <br />
+            <b>Points:</b><br />
+            <p editable-number="currentOpenStory.Points">{{currentOpenStory.Points || 'Enter Story Points' }}</p>
+            <br />
+            <b>Owner:</b> <br />
+            <p editable-select="currentOpenStory.OwnerID" e-ng-options="u.UserID as u.Username for u in teamUsers">{{ currentOpenStory.OwnerID || 'Select the story Owner'}}</p>
+            <br />
+            <b>Blocked:</b> <input type="checkbox" ng-model="currentOpenStory.Blocked" ng-true-value="'Y'" ng-false-value="'N'" />
+            <div ng-if="currentOpenStory.Blocked === 'Y'">
+                <a editable-textarea="currentOpenStory.BlockedText" e-rows="5" e-cols="50"><pre>{{currentOpenStory.BlockedText || 'Enter description of what is blocking the story'}}</pre></a>
+            </div>
+            <button class="btn btn-success btn-lg" ng-click="saveChanges()">Save Changes</button>
+
+        </div>
+    </div>
 </div>
+
+    <style>
+        .ng-pageslide {
+            background: #eee;
+            padding-top: 55px;
+            width: 500px;
+        }
+
+        body.ng-pageslide-body-open::before {
+            content: '.';
+            display: block;
+            position: absolute;
+            top: 0;
+            background-color: rgb(0,0,0);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            opacity: 0.5;
+            transition: opacity 1s;
+        }
+
+        body.ng-pageslide-body-closed::before {
+            transition: opacity 1s;
+            opacity: 0;
+            content: '.';
+            display: block;
+            position: absolute;
+            top: 0;
+            background-color: rgb(0,0,0);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+    </style>

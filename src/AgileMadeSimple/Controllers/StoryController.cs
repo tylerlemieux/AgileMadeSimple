@@ -55,12 +55,13 @@ namespace AgileMadeSimple.Controllers
 
         // PUT api/values/5
         [HttpPut]
-        public Story Put([FromBody]Story story)
+        public IEnumerable<Story> Put([FromBody]Story story)
         {
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
                 context.Update(story);
-                return story;
+                context.SaveChanges();
+                return context.Story.Where(s => s.EpicID == story.EpicID).ToList();
             }
         }
 

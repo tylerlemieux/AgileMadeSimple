@@ -10,6 +10,7 @@
 /// <reference path="lib/angular-bootstrap/ui-bootstrap-tpls.js" />
 /// <reference path="lib/angular-resource/angular-resource.js" />
 /// <reference path="lib/angular-route/angular-route.js" />
+/// <reference path="lib/angular-xeditable/dist/js/xeditable.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/jquery/dist/jquery.js" />
 /// <reference path="lib/jquery-validation/dist/jquery.validate.js" />

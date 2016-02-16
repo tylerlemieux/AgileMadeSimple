@@ -6,7 +6,8 @@
     "angular-route": "*",
     "angular-animate": "*",
     "angular-resource": "*",
-    "ng-pageslide": "*"
+    "ng-pageslide": "*",
+    "angular-xeditable": "*"
   },
   "name": "ASP.NET",
   "private": true,

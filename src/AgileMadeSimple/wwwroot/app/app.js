@@ -1,7 +1,10 @@
-﻿angular.module('AgileMadeSimple', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'pageslide-directive',
+﻿angular.module('AgileMadeSimple', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'pageslide-directive', 'xeditable',
     //My custom modules
     'User', 'EnterprisePlanning', 'Backlog'
 ])
+.run(function(editableOptions) {
+    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+})
 .config(['$routeProvider',
   function($routeProvider) {
       $routeProvider.
