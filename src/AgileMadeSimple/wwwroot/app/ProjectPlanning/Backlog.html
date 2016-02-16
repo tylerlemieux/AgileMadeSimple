@@ -1,0 +1,25 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <p>Add Story</p>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Points</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="story in stories">
+                <td>{{story.StoryID}}</td>
+                <td>{{story.Name}}</td>
+                <td>{{story.Points}}</td>
+                <td><a>More Details</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

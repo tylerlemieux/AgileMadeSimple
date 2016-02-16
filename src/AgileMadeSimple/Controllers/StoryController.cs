@@ -18,13 +18,22 @@ namespace AgileMadeSimple.Controllers
         {
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
-                return context.Story.Select(s => s);
+                return context.Story.Select(s => s).ToArray();
+            }
+        }
+
+        [HttpGet("Project/{epicId}")]
+        public IEnumerable<Story> GetProjectStories(int epicId)
+        {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                return context.Story.Where(e => e.EpicID == epicId).Select(s => s).ToList();
             }
         }
 
         // GET api/values/5
         [HttpGet("{storyId}")]
-        public Story Get(int storyId)
+        public Story GetStory(int storyId)
         {
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {

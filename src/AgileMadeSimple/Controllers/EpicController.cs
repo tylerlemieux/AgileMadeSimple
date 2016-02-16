@@ -18,7 +18,7 @@ namespace AgileMadeSimple.Controllers
         {
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
-                return context.Epic.Select(s => s);
+                return context.Epic.Select(s => s).ToList();
             }
         }
 

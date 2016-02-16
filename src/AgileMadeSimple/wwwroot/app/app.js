@@ -1,6 +1,6 @@
 ﻿angular.module('AgileMadeSimple', ['ngRoute', 'ngAnimate', 'ui.bootstrap',
     //My custom modules
-    'User', 'EnterprisePlanning'
+    'User', 'EnterprisePlanning', 'Backlog'
 ])
 .config(['$routeProvider',
   function($routeProvider) {
