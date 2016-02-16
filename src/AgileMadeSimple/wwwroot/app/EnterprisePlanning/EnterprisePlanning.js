@@ -9,13 +9,13 @@
               });
         }])
 .controller('EnterprisePlanningController', ['$scope', '$http', '$location', '$uibModal', function ($scope, $http, $location, $uibModal) {
-    $scope.epics = [{
-        EpicID: 1,
-        Name: "Epic Sample 1"
-    }, {
-        EpicID: 2,
-        Name: "Epic Sample 2"
-    }];
+
+
+    $http.get('api/Epic').then(
+        function (response) {
+            $scope.epics = response.data;
+        },
+        function () { })
 
     function getStates() {
         $http.get('api/Epic/States/1').then(function (result) {

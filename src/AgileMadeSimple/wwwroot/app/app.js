@@ -1,4 +1,4 @@
-﻿angular.module('AgileMadeSimple', ['ngRoute', 'ngAnimate', 'ui.bootstrap',
+﻿angular.module('AgileMadeSimple', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'pageslide-directive',
     //My custom modules
     'User', 'EnterprisePlanning', 'Backlog'
 ])

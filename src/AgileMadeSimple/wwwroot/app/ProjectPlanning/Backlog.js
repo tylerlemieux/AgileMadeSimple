@@ -1,4 +1,4 @@
-﻿angular.module('Backlog', ['ui.bootstrap', 'ngRoute', 'ngAnimate'])
+﻿angular.module('Backlog', ['ui.bootstrap', 'ngRoute', 'ngAnimate', 'pageslide-directive'])
 .config(['$routeProvider',
 
     function ($routeProvider) {

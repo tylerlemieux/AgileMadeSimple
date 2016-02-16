@@ -12,8 +12,8 @@
                 <tbody>
                     <tr ng-repeat="epic in epics">
                         <td>{{epic.Name}}</td>
-                        <td><a href="#">Open Project Planning</a></td>
-                        <td><a href="#">Open Current Sprint</a></td>
+                        <td><a href="#/Backlog/{{epic.EpicID}}">Open Project Planning</a></td>
+                        <td><a href="#/Taskboard/">Open Current Sprint</a></td>
                     </tr>
                 </tbody>
             </table>

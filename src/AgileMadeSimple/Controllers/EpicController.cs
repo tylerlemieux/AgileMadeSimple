@@ -26,9 +26,11 @@ namespace AgileMadeSimple.Controllers
         [HttpGet("{id}")]
         public Epic Get(int id)
         {
-            return new Epic();
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                return context.Epic.Where(e => e.EpicID == id).First();
+            }
         }
-
         // POST api/values
         [HttpPost]
         public Epic Post([FromBody]Epic epic)
@@ -97,7 +99,7 @@ namespace AgileMadeSimple.Controllers
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
                 IEnumerable<States> states = context.States.Where(s => s.Type == "Epic" && teamId == s.TeamID).OrderBy(s => s.Order).Select(s => s);
-                return states;
+                return states.ToList();
             }
         }
 
@@ -109,7 +111,7 @@ namespace AgileMadeSimple.Controllers
                 state.Type = "Epic";
                 context.States.Add(state);
 
-                return context.States.Where(s => s.Type == "Epic" && teamId == s.TeamID).OrderBy(s => s.Order).Select(s => s);
+                return context.States.Where(s => s.Type == "Epic" && teamId == s.TeamID).OrderBy(s => s.Order).Select(s => s).ToList();
             }
         }
 
@@ -121,7 +123,7 @@ namespace AgileMadeSimple.Controllers
                 States state = context.States.Where(s => s.StateID == stateId).First();
                 context.States.Remove(state);
 
-                return context.States.Where(s => s.Type == "Epic").OrderBy(s => s.Order).Select(s => s);
+                return context.States.Where(s => s.Type == "Epic").OrderBy(s => s.Order).Select(s => s).ToList();
             }
         }
     }
