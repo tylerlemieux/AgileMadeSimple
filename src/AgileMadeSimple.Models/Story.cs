@@ -13,6 +13,7 @@ namespace AgileMadeSimple.Models
         public int EpicID { get; set; }
         public int? FeatureID { get; set; }
         public string Name { get; set; }
+        public int? Order { get; set; }
         public int? OwnerID { get; set; }
         public int? Points { get; set; }
         public int StateID { get; set; }

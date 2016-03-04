@@ -4,28 +4,52 @@
     </div>
 </div>
 <div class="row">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Points</th>
-                <th>States</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="story in stories">
-                <td>S-{{story.StoryID}}</td>
-                <td>{{story.Name}}</td>
-                <td>{{story.Points}}</td>
-                <td>Placeholder for story state</td>
+    <div>
+        <!--<table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                    <th>States</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody dnd-list="stories">
 
-                <td><a ng-click="openStory(story)">More Details</a></td>
-            </tr>
-        </tbody>
-    </table>
+                <tr ng-repeat="story in stories"
+                     dnd-draggable="item"
+                     dnd-moved="storyMoved()"
+                     dnd-effect-allowed="move"
+                    >
+                    <td>S-{{story.StoryID}}</td>
+                    <td>{{story.Name}}</td>
+                    <td>{{story.Points}}</td>
+                    <td>Placeholder for story state</td>
 
+                    <td><a ng-click="openStory(story)">More Details</a></td>
+                </tr>
+            </tbody>
+        </table>-->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Backlog Stories</h3>
+            </div>
+            <div class="panel-body">
+                <ul dnd-list="stories">
+                    <li ng-repeat="story in stories"
+                        dnd-draggable="story"
+                        dnd-moved="storyMoved($index)"
+                        dnd-effect-allowed="move"
+                        dnd-selected="openStory(story)">
+                        <span style="padding-right:5em">S-{{story.StoryID}}</span>
+                        <b>{{story.Name}}</b>
+                        <span class="badge pull-right">{{story.Points}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <!--Directive for slide out-->
     <div pageslide ps-open="sidePanelOpen" ps-side="right" ps-push="true" ps-cloak="false" ps-size="500px">
         <div style="padding:20px;">
@@ -53,39 +77,106 @@
     </div>
 </div>
 
-    <style>
-        .ng-pageslide {
-            background: #eee;
-            padding-top: 55px;
-            width: 500px;
-        }
+<style>
+    .ng-pageslide {
+        background: #eee;
+        padding-top: 55px;
+        width: 500px;
+    }
 
-        body.ng-pageslide-body-open::before {
-            content: '.';
-            display: block;
-            position: absolute;
-            top: 0;
-            background-color: rgb(0,0,0);
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-            opacity: 0.5;
-            transition: opacity 1s;
-        }
+    body.ng-pageslide-body-open::before {
+        content: '.';
+        display: block;
+        position: absolute;
+        top: 0;
+        background-color: rgb(0,0,0);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        opacity: 0.5;
+        transition: opacity 1s;
+    }
 
-        body.ng-pageslide-body-closed::before {
-            transition: opacity 1s;
-            opacity: 0;
-            content: '.';
-            display: block;
-            position: absolute;
-            top: 0;
-            background-color: rgb(0,0,0);
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
-    </style>
+    body.ng-pageslide-body-closed::before {
+        transition: opacity 1s;
+        opacity: 0;
+        content: '.';
+        display: block;
+        position: absolute;
+        top: 0;
+        background-color: rgb(0,0,0);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        pointer-events: none;
+    }
+</style>
+
+
+<style>
+       /**
+    * For the correct positioning of the placeholder element, the dnd-list and
+    * it's children must have position: relative
+    */
+       ul[dnd-list],
+       ul[dnd-list] > li {
+           position: relative;
+       }
+
+       /**
+    * The dnd-list should always have a min-height,
+    * otherwise you can't drop to it once it's empty
+    */
+       ul[dnd-list] {
+           min-height: 42px;
+           padding-left: 0px;
+       }
+
+           /**
+    * The dndDraggingSource class will be applied to
+    * the source element of a drag operation. It makes
+    * sense to hide it to give the user the feeling
+    * that he's actually moving it.
+    */
+           ul[dnd-list] .dndDraggingSource {
+               display: none;
+           }
+
+           /**
+    * An element with .dndPlaceholder class will be
+    * added to the dnd-list while the user is dragging
+    * over it.
+    */
+           ul[dnd-list] .dndPlaceholder {
+               display: block;
+               background-color: #ddd;
+               min-height: 42px;
+           }
+
+           /**
+    * The dnd-lists's child elements currently MUST have
+    * position: relative. Otherwise we can not determine
+    * whether the mouse pointer is in the upper or lower
+    * half of the element we are dragging over. In other
+    * browsers we can use event.offsetY for this.
+    */
+           ul[dnd-list] li {
+               background-color: #fff;
+               border: 1px solid #ddd;
+               border-top-right-radius: 4px;
+               border-top-left-radius: 4px;
+               display: block;
+               padding: 10px 15px;
+               margin-bottom: -1px;
+           }
+
+               /**
+    * Show selected elements in green
+    */
+               ul[dnd-list] li.selected {
+                   background-color: #dff0d8;
+                   color: #3c763d;
+               }
+</style>

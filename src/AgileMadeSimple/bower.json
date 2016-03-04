@@ -7,7 +7,8 @@
     "angular-animate": "*",
     "angular-resource": "*",
     "ng-pageslide": "*",
-    "angular-xeditable": "*"
+    "angular-xeditable": "*",
+    "angular-drag-and-drop-lists": "*"
   },
   "name": "ASP.NET",
   "private": true,

@@ -1,4 +1,4 @@
-﻿angular.module('Backlog', ['ui.bootstrap', 'ngRoute', 'ngAnimate', 'pageslide-directive', 'xeditable'])
+﻿angular.module('Backlog', ['ui.bootstrap', 'ngRoute', 'ngAnimate', 'pageslide-directive', 'xeditable', 'dndLists'])
 .config(['$routeProvider',
 
     function ($routeProvider) {
@@ -10,6 +10,7 @@
     }])
 .controller('BacklogController', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
     $scope.projectId = $routeParams.projectId;
+    $scope.filterApplied = false;
 
     $scope.getProjects = function () {
 
@@ -67,6 +68,14 @@
                 $scope.sidePanelOpen = false;
             });
         }
+    }
+
+    $scope.storyMoved = function (index) {
+        $scope.stories.splice(index, 1);
+        //Reorder the priority
+        angular.forEach($scope.stories, function (story, index) {
+            story.Order = index;
+        });
     }
 
 }]);

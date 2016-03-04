@@ -27,7 +27,7 @@ namespace AgileMadeSimple.Controllers
         {
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
-                return context.Story.Where(e => e.EpicID == epicId).Select(s => s).ToList();
+                return context.Story.Where(e => e.EpicID == epicId).Select(s => s).OrderBy(s => s.Order).ToList();
             }
         }
 
@@ -47,6 +47,8 @@ namespace AgileMadeSimple.Controllers
         {
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
+                int? maxOrderNumber = context.Story.Where(s => s.EpicID == story.EpicID).Select(s => s.Order).Max();
+                story.Order = maxOrderNumber == null ? 0 : maxOrderNumber + 1;
                 context.Story.Add(story);
                 context.SaveChanges();
                 return story;
@@ -62,6 +64,16 @@ namespace AgileMadeSimple.Controllers
                 context.Update(story);
                 context.SaveChanges();
                 return context.Story.Where(s => s.EpicID == story.EpicID).ToList();
+            }
+        }
+
+        [HttpPut("BulkEdit")]
+        public void Put([FromBody]IEnumerable<Story> stories)
+        {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                context.UpdateRange(stories);
+                context.SaveChanges();
             }
         }
 
