@@ -8,7 +8,7 @@
                 controller: 'BacklogController',
             });
     }])
-.controller('BacklogController', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
+.controller('BacklogController', ['$scope', '$routeParams', '$http', '$uibModal', function ($scope, $routeParams, $http, $uibModal) {
     $scope.projectId = $routeParams.projectId;
     $scope.filterApplied = false;
 
@@ -20,6 +20,12 @@
 
         });
     };
+    $scope.getSprints = function () {
+        $http.get('api/Story/Sprints/' + $scope.projectId).then(function (response) {
+            $scope.sprints = response.data;
+        });
+    };
+
 
     $scope.getProjects();
 
@@ -38,6 +44,8 @@
 
     $scope.currentOpenStory = $scope.blankStory;
     $scope.sidePanelOpen = false;
+    $scope.sprintPanelOpen = false;
+
 
     $scope.openStory = function (story) {
         if (!story)
@@ -50,6 +58,14 @@
 
     $scope.closePanel = function () {
         $scope.sidePanelOpen = false;
+    }
+
+    $scope.closeSprintPanel = function () {
+        $scope.sprintPanelOpen = false;
+    }
+
+    $scope.openSprintPanel = function () {
+        $scope.sprintPanelOpen = true;
     }
 
     $scope.saveChanges = function () {
@@ -76,6 +92,47 @@
         angular.forEach($scope.stories, function (story, index) {
             story.Order = index;
         });
+        $http.put("api/Story/BulkEdit", $scope.stories).then(function(response){
+
+        });
     }
 
+    $scope.openAddSprint = function () {
+
+        var modal = $uibModal.open({
+            templateUrl: 'addSprint.html',
+            controller: 'AddSprintController'
+        });
+
+        modal.result.then(function (response) {
+
+        }, function () {
+
+        });
+    }
+}])
+.controller('AddSprintController', ['$scope', '$uibModalInstance', '$http', '$routeParams', function ($scope, $uibModalInstance, $http, $routeParams) {
+    
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    }
+
+    $scope.addSprint = function () {
+        //Add the story post and check response
+        //If successful close the modal and return the new sprint
+        var sprintVM = {
+            SprintGoals: $scope.sprintGoals,
+            DefinitionOfDone: $scope.definitionOfDone,
+            StartDate: $scope.startDate,
+            EndDate: $scope.endDate,
+            ProjectID: $routeParams.projectId
+        };
+
+        $http.post('api/Story/Sprint', sprintVM).then(function (response) {
+            $uibModalInstance.close(response.data);
+        }, function () {
+            alert("failure creating sprint.. todo edit this message");
+        });
+
+    }
 }]);

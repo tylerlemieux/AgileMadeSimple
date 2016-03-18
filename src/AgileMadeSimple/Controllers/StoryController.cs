@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using AgileMadeSimple.Models;
+using AgileMadeSimple.Models.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +13,18 @@ namespace AgileMadeSimple.Controllers
     [Route("api/[controller]")]
     public class StoryController : Controller
     {
+        public enum StoryStates
+        {
+            BACKLOG,
+            DEFINED,
+            IN_PROGRESS,
+            READY_FOR_TEST,
+            COMPLETED,
+            ACCEPTED
+
+        }
+
+
         // GET: api/values
         [HttpGet]
         public IEnumerable<Story> Get()
@@ -119,5 +132,62 @@ namespace AgileMadeSimple.Controllers
                 context.SaveChanges();
             }
         }
+
+        #region Sprint Controller Actions
+        [HttpPost("Sprint")]
+        public IEnumerable<SprintsVM> CreateSprint([FromBody] Sprint sprint)
+        {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                context.Sprint.Add(sprint);
+                context.SaveChanges();
+                return (from s in context.Sprint
+                        where s.ProjectID == sprint.ProjectID
+                        select new SprintsVM
+                        {
+                            SprintID = s.SprintID,
+                            DefinitionOfDone = s.DefinitionOfDone,
+                            SprintGoals = s.SprintGoals,
+                            StartDate = s.StartDate,
+                            EndDate = s.EndDate,
+                            ProjectID = s.ProjectID,
+                            Stories =
+                                (from st in context.Story
+                                 where st.SprintID == s.SprintID
+                                 select st).ToList()
+
+                        }).ToList();
+            }
+        }
+
+        [HttpGet("Sprints/{projectId}")]
+        public IEnumerable<SprintsVM> GetSprints(int projectId)
+        {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                var sprints =
+                    (from s in context.Sprint
+                     where s.ProjectID == projectId
+                     select new SprintsVM
+                     {
+                         SprintID = s.SprintID,
+                         DefinitionOfDone = s.DefinitionOfDone,
+                         SprintGoals = s.SprintGoals,
+                         StartDate = s.StartDate,
+                         EndDate = s.EndDate,
+                         ProjectID = s.ProjectID,
+                         Stories =
+                             (from st in context.Story
+                              where st.SprintID == s.SprintID
+                              select st).ToList()
+                            
+                    }).ToList();
+                
+                return sprints;
+
+            }
+        }
+
+        #endregion
     }
 }

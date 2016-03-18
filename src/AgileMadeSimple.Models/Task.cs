@@ -10,6 +10,7 @@ namespace AgileMadeSimple.Models
         public string BlockedMessage { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
+        public int? SprintID { get; set; }
         public int StateID { get; set; }
         public int StoryID { get; set; }
         public decimal? ToDoHours { get; set; }

@@ -16,10 +16,12 @@ namespace AgileMadeSimple.Models
         public int? Order { get; set; }
         public int? OwnerID { get; set; }
         public int? Points { get; set; }
+        public int? SprintID { get; set; }
         public int StateID { get; set; }
 
         public virtual Epic Epic { get; set; }
         public virtual User Owner { get; set; }
+        public virtual Sprint Sprint { get; set; }
         public virtual States State { get; set; }
     }
 }

@@ -45,6 +45,21 @@ namespace AgileMadeSimple.Models
                 entity.HasOne(d => d.Tag).WithMany(p => p.FeatureTag).HasForeignKey(d => d.TagID).OnDelete(DeleteBehavior.Restrict);
             });
 
+            modelBuilder.Entity<Sprint>(entity =>
+            {
+                entity.Property(e => e.DefinitionOfDone)
+                    .HasMaxLength(1000)
+                    .HasColumnType("varchar");
+
+                entity.Property(e => e.EndDate).HasColumnType("datetime");
+
+                entity.Property(e => e.SprintGoals)
+                    .HasMaxLength(2000)
+                    .HasColumnType("varchar");
+
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
+            });
+
             modelBuilder.Entity<States>(entity =>
             {
                 entity.HasKey(e => e.StateID);
@@ -80,6 +95,8 @@ namespace AgileMadeSimple.Models
                 entity.HasOne(d => d.Epic).WithMany(p => p.Story).HasForeignKey(d => d.EpicID).OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(d => d.Owner).WithMany(p => p.Story).HasForeignKey(d => d.OwnerID);
+
+                entity.HasOne(d => d.Sprint).WithMany(p => p.Story).HasForeignKey(d => d.SprintID);
 
                 entity.HasOne(d => d.State).WithMany(p => p.Story).HasForeignKey(d => d.StateID).OnDelete(DeleteBehavior.Restrict);
             });
@@ -158,6 +175,7 @@ namespace AgileMadeSimple.Models
         public virtual DbSet<Epic> Epic { get; set; }
         public virtual DbSet<Feature> Feature { get; set; }
         public virtual DbSet<FeatureTag> FeatureTag { get; set; }
+        public virtual DbSet<Sprint> Sprint { get; set; }
         public virtual DbSet<States> States { get; set; }
         public virtual DbSet<Story> Story { get; set; }
         public virtual DbSet<StoryTag> StoryTag { get; set; }
