@@ -40,7 +40,7 @@ namespace AgileMadeSimple.Controllers
         {
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
-                return context.Story.Where(e => e.EpicID == epicId).Select(s => s).OrderBy(s => s.Order).ToList();
+                return context.Story.Where(e => e.EpicID == epicId && e.SprintID == null).Select(s => s).OrderBy(s => s.Order).ToList();
             }
         }
 

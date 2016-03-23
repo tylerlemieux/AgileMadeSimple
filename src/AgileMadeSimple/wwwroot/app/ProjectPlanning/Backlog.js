@@ -20,13 +20,14 @@
 
         });
     };
+
     $scope.getSprints = function () {
         $http.get('api/Story/Sprints/' + $scope.projectId).then(function (response) {
             $scope.sprints = response.data;
         });
     };
 
-
+    $scope.getSprints();
     $scope.getProjects();
 
 
@@ -91,7 +92,19 @@
         //Reorder the priority
         angular.forEach($scope.stories, function (story, index) {
             story.Order = index;
+            story.SprintID = null;
         });
+
+        var storiesVM = $scope.stories;
+
+        angular.forEach($scope.sprints, function (sprint, index) {
+            angular.forEach(sprint.Stories, function (story, index) {
+                story.Order = index;
+                story.SprintID = sprint.SprintID;
+                storiesVM.push(story);
+            });
+        });
+
         $http.put("api/Story/BulkEdit", $scope.stories).then(function(response){
 
         });

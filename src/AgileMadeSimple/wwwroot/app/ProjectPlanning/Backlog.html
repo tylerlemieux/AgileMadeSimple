@@ -81,16 +81,17 @@
 
     <div pageslide ps-open="sprintPanelOpen" ps-side="left" ps-squeeze="true" ps-size="500px">
         <div style="padding:20px">
-            <div class="btn btn-danger" ng-click="closeSprintPanel()">Close</div>
-            <div class="pull-right btn btn-success" ng-click="openAddSprint()">Add Sprint</div>
-            <br />
+            <div style="padding-bottom: 10px">
+                <div class="btn btn-danger" ng-click="closeSprintPanel()">Close</div>
+                <div class="pull-right btn btn-success" ng-click="openAddSprint()">Add Sprint</div>
+            </div>
             <!--Begin Sprint Panels-->
             <div class="panel panel-info" ng-repeat="sprint in sprints">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Sprint {{$index + 1}} {{sprint.StartDate}}-{{sprint.EndDate}}</h3>
+                    <h3 class="panel-title">Sprint {{$index + 1}} {{sprint.StartDate.substr(0,10)}}-{{sprint.EndDate.substr(0,10)}}</h3>
                 </div>
                 <div class="panel-body">
-                    <ul dnd-list="stories">
+                    <ul dnd-list="sprint.Stories">
                         <li ng-repeat="story in sprint.Stories"
                             dnd-draggable="story"
                             dnd-moved="storyMoved($index)"
@@ -133,7 +134,7 @@
             
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" ng-click="addStory()">Add</button>
+        <button class="btn btn-success" ng-click="addSprint()">Add</button>
         <button class="btn btn-default" ng-click="cancel()">Cancel</button>
     </div>
 </script>
