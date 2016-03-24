@@ -87,8 +87,9 @@
         }
     }
 
-    $scope.storyMoved = function (index) {
-        $scope.stories.splice(index, 1);
+    $scope.storyMoved = function (storyIndex, list) {
+        list.splice(storyIndex, 1);
+      
         //Reorder the priority
         angular.forEach($scope.stories, function (story, index) {
             story.Order = index;
@@ -97,7 +98,7 @@
 
         var storiesVM = $scope.stories;
 
-        angular.forEach($scope.sprints, function (sprint, index) {
+        angular.forEach($scope.sprints, function (sprint) {
             angular.forEach(sprint.Stories, function (story, index) {
                 story.Order = index;
                 story.SprintID = sprint.SprintID;
@@ -105,8 +106,9 @@
             });
         });
 
-        $http.put("api/Story/BulkEdit", $scope.stories).then(function(response){
-
+        $http.put("api/Story/BulkEdit", storiesVM).then(function (response) {
+            //Call this to refresh the stories in the backlog... hacky fix for now to fix all stories getting ordered into the backlog section
+            $scope.getProjects();
         });
     }
 
@@ -118,7 +120,7 @@
         });
 
         modal.result.then(function (response) {
-
+            $scope.getSprints();
         }, function () {
 
         });

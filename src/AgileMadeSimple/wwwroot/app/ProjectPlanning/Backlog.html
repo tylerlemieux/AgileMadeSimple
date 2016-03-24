@@ -42,7 +42,7 @@
                 <ul dnd-list="stories">
                     <li ng-repeat="story in stories"
                         dnd-draggable="story"
-                        dnd-moved="storyMoved($index)"
+                        dnd-moved="storyMoved($index, stories)"
                         dnd-effect-allowed="move"
                         dnd-selected="openStory(story)">
                         <span style="padding-right:5em">S-{{story.StoryID}}</span>
@@ -88,13 +88,13 @@
             <!--Begin Sprint Panels-->
             <div class="panel panel-info" ng-repeat="sprint in sprints">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Sprint {{$index + 1}} {{sprint.StartDate.substr(0,10)}}-{{sprint.EndDate.substr(0,10)}}</h3>
+                    <h3 class="panel-title"><b>Sprint {{$index + 1}}</b> {{sprint.StartDate.substr(0,10)}}-{{sprint.EndDate.substr(0,10)}}</h3>
                 </div>
                 <div class="panel-body">
                     <ul dnd-list="sprint.Stories">
                         <li ng-repeat="story in sprint.Stories"
                             dnd-draggable="story"
-                            dnd-moved="storyMoved($index)"
+                            dnd-moved="storyMoved($index, sprint.Stories)"
                             dnd-effect-allowed="move"
                             dnd-selected="openStory(story)">
                             <span style="padding-right:5em">S-{{story.StoryID}}</span>
