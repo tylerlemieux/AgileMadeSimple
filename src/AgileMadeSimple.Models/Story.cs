@@ -5,6 +5,11 @@ namespace AgileMadeSimple.Models
 {
     public partial class Story
     {
+        public Story()
+        {
+            Task = new HashSet<Task>();
+        }
+
         public int StoryID { get; set; }
         public string AcceptanceCriteria { get; set; }
         public string Blocked { get; set; }
@@ -19,6 +24,7 @@ namespace AgileMadeSimple.Models
         public int? SprintID { get; set; }
         public int StateID { get; set; }
 
+        public virtual ICollection<Task> Task { get; set; }
         public virtual Epic Epic { get; set; }
         public virtual User Owner { get; set; }
         public virtual Sprint Sprint { get; set; }

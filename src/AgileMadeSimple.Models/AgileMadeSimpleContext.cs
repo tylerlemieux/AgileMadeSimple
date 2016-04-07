@@ -132,6 +132,8 @@ namespace AgileMadeSimple.Models
                 entity.Property(e => e.ToDoHours).HasColumnType("decimal");
 
                 entity.Property(e => e.TotalHours).HasColumnType("decimal");
+
+                entity.HasOne(d => d.Story).WithMany(p => p.Task).HasForeignKey(d => d.StoryID);
             });
 
             modelBuilder.Entity<Team>(entity =>

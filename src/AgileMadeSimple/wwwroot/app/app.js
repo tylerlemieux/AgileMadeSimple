@@ -1,6 +1,6 @@
 ﻿angular.module('AgileMadeSimple', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'pageslide-directive', 'xeditable', 'dndLists',
     //My custom modules
-    'User', 'EnterprisePlanning', 'Backlog'
+    'User', 'EnterprisePlanning', 'Backlog', 'SprintWall'
 ])
 .run(function(editableOptions) {
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'

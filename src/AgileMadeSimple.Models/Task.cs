@@ -15,5 +15,7 @@ namespace AgileMadeSimple.Models
         public int StoryID { get; set; }
         public decimal? ToDoHours { get; set; }
         public decimal? TotalHours { get; set; }
+
+        public virtual Story Story { get; set; }
     }
 }

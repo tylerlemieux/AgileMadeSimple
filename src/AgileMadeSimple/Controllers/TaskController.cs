@@ -4,6 +4,7 @@ using System.Linq;
 //using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using AgileMadeSimple.Models;
+using Microsoft.Data.Entity;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -105,6 +106,19 @@ namespace AgileMadeSimple.Controllers
                 context.Task.Remove(task);
                 context.TaskTag.RemoveRange(taskTag);
                 context.SaveChanges();
+            }
+        }
+
+        [HttpGet("Sprint/{sprintId}")]
+        public Sprint GetSprintData(int sprintId)
+        {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                var sprint = context.Sprint.Where(s => s.SprintID == sprintId).Select(s => s).First();
+
+                sprint.Story = context.Story.Include(s => s.Task).Where(s => s.SprintID == sprintId).Select(s => s).ToArray();
+
+                return sprint;
             }
         }
     }

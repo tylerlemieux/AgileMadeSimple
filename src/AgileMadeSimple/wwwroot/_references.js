@@ -3,6 +3,7 @@
 /// <reference path="app/app.js" />
 /// <reference path="app/EnterprisePlanning/EnterprisePlanning.js" />
 /// <reference path="app/ProjectPlanning/Backlog.js" />
+/// <reference path="app/sprintwall/sprintwall.js" />
 /// <reference path="app/user/user.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/angular/angular.js" />

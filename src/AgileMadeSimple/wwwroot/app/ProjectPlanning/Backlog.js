@@ -50,7 +50,17 @@
 
     $scope.openStory = function (story) {
         if (!story)
-            $scope.currentOpenStory = $scope.blankStory;
+            $scope.currentOpenStory = {
+                Name: null,
+                Points: null,
+                Description: null,
+                AcceptanceCriteria: null,
+                BlockedText: null,
+                Blocked: 'N',
+                EpicID: parseInt($routeParams.projectId),
+                OwnerID: null,
+                StateID: 2
+            };
         else
             $scope.currentOpenStory = story;
 
