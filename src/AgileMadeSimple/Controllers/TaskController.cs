@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.AspNet.Mvc;
 using AgileMadeSimple.Models;
 using Microsoft.Data.Entity;
+using AgileMadeSimple.Models.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -109,17 +110,96 @@ namespace AgileMadeSimple.Controllers
             }
         }
 
+        //[HttpGet("Sprint/{sprintId}")]
+        //public Sprint GetSprintData(int sprintId)
+        //{
+        //    using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+        //    {
+        //        var sprint = context.Sprint.Where(s => s.SprintID == sprintId).Select(s => s).First();
+
+        //        sprint.Story = context.Story.Include(s => s.Task).Where(s => s.SprintID == sprintId).Select(s => s).ToArray();
+
+        //        return sprint;
+        //    }
+        //}
+
         [HttpGet("Sprint/{sprintId}")]
-        public Sprint GetSprintData(int sprintId)
+        public SprintWallVM GetSprint(int sprintId)
         {
-            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            AgileMadeSimpleContext context = new AgileMadeSimpleContext();
+
+            //var sprint = 
+            //    from s in context.Sprint
+            //    join story in context.Story.Include(s => s.Task) on s.SprintID equals story.SprintID
+            //    where s.SprintID == sprintId
+            //    group s by new { s.SprintID, s.ProjectID, s.DefinitionOfDone, s.StartDate, s.EndDate, s.SprintGoals } into groupedSprints
+
+            //    select new SprintsVM
+            //    {
+            //        SprintID = groupedSprints.Key.SprintID,
+            //        ProjectID = groupedSprints.Key.ProjectID,
+            //        DefinitionOfDone = groupedSprints.Key.DefinitionOfDone,
+            //        StartDate = groupedSprints.Key.StartDate,
+            //        EndDate = groupedSprints.Key.EndDate,
+            //        SprintGoals = groupedSprints.Key.SprintGoals,
+            //        Stories = groupedSprints
+
+
+            //    }
+
+
+
+            var sprint = context.Sprint
+                .Where(s => s.SprintID == sprintId)
+                .Select(s => new SprintWallVM
+                {
+                    SprintID = s.SprintID,
+                    ProjectID = s.ProjectID,
+                    DefinitionOfDone = s.DefinitionOfDone,
+                    StartDate = s.StartDate,
+                    EndDate = s.EndDate,
+                    SprintGoals = s.SprintGoals
+                }).First();
+
+
+            sprint.Story = context.Story.Where(s => s.SprintID == sprintId)
+                .Select(s => new StoryVM {
+                    SprintID = s.SprintID,
+                    AcceptanceCriteria = s.AcceptanceCriteria,
+                    StateID = s.StateID,
+                    StoryID = s.StoryID,
+                    Blocked = s.Blocked,
+                    BlockedText = s.BlockedText,
+                    Description = s.Description,
+                    EpicID = s.EpicID,
+                    FeatureID = s.FeatureID,
+                    Name = s.Name,
+                    Order = s.Order, 
+                    OwnerID = s.OwnerID,
+                    Points = s.Points
+                }).ToArray();
+
+            foreach(var story in sprint.Story)
             {
-                var sprint = context.Sprint.Where(s => s.SprintID == sprintId).Select(s => s).First();
-
-                sprint.Story = context.Story.Include(s => s.Task).Where(s => s.SprintID == sprintId).Select(s => s).ToArray();
-
-                return sprint;
+                story.Task = context.Task.Where(t => t.StoryID == story.StoryID)
+                    .Select(t => new TaskVM {
+                        SprintID = t.SprintID,
+                        StateID = t.StateID,
+                        StoryID = t.StoryID,
+                        Blocked = t.Blocked,
+                        BlockedMessage = t.BlockedMessage,
+                        Description = t.Description,
+                        Name = t.Name, 
+                        TaskID = t.TaskID,
+                        ToDoHours = t.ToDoHours,
+                        TotalHours = t.TotalHours
+                    }).ToArray();
             }
+
+            return sprint;
+            
         }
+
+         
     }
 }

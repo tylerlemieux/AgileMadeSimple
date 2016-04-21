@@ -24,14 +24,13 @@
     //};
 
     $scope.getSprintData = function () {
-        console.log($routeParams.sprintId);
+        //console.log($routeParams.sprintId);
         $http.get('api/Task/Sprint/' + $routeParams.sprintId).then(function (response) {
             $scope.Sprint = response.data;
-            console.log($scope.Sprint);
-
-
+            //console.log($scope.Sprint)
             
-        }, function () {
+        }, function (error) {
+            console.log(error);
             $scope.Sprint = {
                 Story: [
                     {
@@ -106,5 +105,25 @@
         $scope.sidePanelScope = null;
         $scope.sidePanelType = null;
         $scope.sidePanelOpen = false;
+    };
+
+    $scope.saveChanges = function () {
+        if ($scope.sidePanelType == "task") {
+            if ($scope.sidePanelScope.TaskID == null || $scope.sidePanelScope.TaskID == undefined) {
+                //create as new task
+                $http.post('api/Task', $scope.sidePanelScope).then(function (response) { getSprintData(); }, function () { /*error message*/ });
+            } else {
+                //update task
+                $http.put('api/Task', $scope.sidePanelScope).then(function (response) { getSprintData(); }, function () { /*error message*/ });
+            }
+
+        } else if ($scope.sidePanelType == "story") {
+            //update story
+            $http.put('api/Story', $scope.sidePanelScope).then(function (response) { getSprintData(); }, function () { /*error message*/ });
+
+        }
+
+
+        $scope.closeSidePanel();
     };
 }]);

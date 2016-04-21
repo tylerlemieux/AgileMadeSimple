@@ -8,13 +8,13 @@
         <th>Tags</th>
     </tr>
     <tbody>
-        <tr ng-repeat-start="story in Sprint.Story" ng-click="openSidePanel(story, 'story')">
-            <td>{{story.Name}} <div class="badge" style="margin-left: 25px">{{story.Points}}</div></td>
+        <tr ng-repeat-start="story in Sprint.Story">
+            <td ng-click="openSidePanel(story, 'story')">{{story.Name}} <div class="badge" style="margin-left: 25px">{{story.Points}}</div></td>
             <td><button class="btn btn-sm btn-success" ng-click="openSidePanel(null, 'task', story.StoryID)">Add Task</button></td>
-            <td></td>
-            <td></td>
-            <td>Owner</td>
-            <td>Tags</td>
+            <td ng-click="openSidePanel(story, 'story')"></td>
+            <td ng-click="openSidePanel(story, 'story')"></td>
+            <td ng-click="openSidePanel(story, 'story')">Owner</td>
+            <td ng-click="openSidePanel(story, 'story')">Tags</td>
         </tr>
         <tr ng-repeat="task in story.Task" ng-click="openSidePanel(task, 'task', story.StoryID)">
             <td></td>
@@ -32,44 +32,46 @@
     <div style="padding:20px;">
         <div ng-if="sidePanelType=='story'">
             <button class="btn btn-danger" ng-click="closeSidePanel()">Close</button>
-            <h3 editable-text="currentOpenStory.Name">{{ sidePanelScope.Name || 'Enter Story Name' }}</h3>
+            <h3 editable-text="sidePanelScope.Name">{{ sidePanelScope.Name || 'Enter Story Name' }}</h3>
             <b>Details:</b><br />
-            <a editable-textarea="currentOpenStory.Description" e-rows="5" e-cols="50"><pre>{{sidePanelScope.Description || 'Enter Description'}}</pre></a>
+            <a editable-textarea="sidePanelScope.Description" e-rows="5" e-cols="50"><pre>{{sidePanelScope.Description || 'Enter Description'}}</pre></a>
             <br />
             <b>Acceptance Criteria:</b><br />
-            <a editable-textarea="currentOpenStory.AcceptanceCriteria" e-rows="5" e-cols="50"><pre>{{sidePanelScope.AcceptanceCriteria || 'Enter Acceptance Criteria' }}</pre></a>
+            <a editable-textarea="sidePanelScope.AcceptanceCriteria" e-rows="5" e-cols="50"><pre>{{sidePanelScope.AcceptanceCriteria || 'Enter Acceptance Criteria' }}</pre></a>
             <br />
             <b>Points:</b><br />
-            <p editable-number="currentOpenStory.Points">{{sidePanelScope.Points || 'Enter Story Points' }}</p>
+            <p editable-number="sidePanelScope.Points">{{sidePanelScope.Points || 'Enter Story Points' }}</p>
             <br />
             <b>Owner:</b> <br />
-            <p editable-select="currentOpenStory.OwnerID" e-ng-options="u.UserID as u.Username for u in teamUsers">{{ sidePanelScope.OwnerID || 'Select the story Owner'}}</p>
+            <p editable-select="sidePanelScope.OwnerID" e-ng-options="u.UserID as u.Username for u in teamUsers">{{ sidePanelScope.OwnerID || 'Select the story Owner'}}</p>
             <br />
             <b>Blocked:</b> <input type="checkbox" ng-model="sidePanelScope.Blocked" ng-true-value="'Y'" ng-false-value="'N'" />
             <div ng-if="sidePanelScope.Blocked === 'Y'">
-                <a editable-textarea="currentOpenStory.BlockedText" e-rows="5" e-cols="50"><pre>{{sidePanelScope.BlockedText || 'Enter description of what is blocking the story'}}</pre></a>
+                <a editable-textarea="sidePanelScope.BlockedText" e-rows="5" e-cols="50"><pre>{{sidePanelScope.BlockedText || 'Enter description of what is blocking the story'}}</pre></a>
             </div>
+            <br />
             <button class="btn btn-success btn-lg" ng-click="saveChanges()">Save Changes</button>
         </div>
         <div ng-if="sidePanelType=='task'">
             <button class="btn btn-danger" ng-click="closeSidePanel()">Close</button>
-            <h3 editable-text="currentOpenStory.Name">{{ sidePanelScope.Name || 'Enter Story Name' }}</h3>
+            <h3 editable-text="sidePanelScope.Name">{{ sidePanelScope.Name || 'Enter Task Name' }}</h3>
             <b>Details:</b><br />
-            <a editable-textarea="currentOpenStory.Description" e-rows="5" e-cols="50"><pre>{{sidePanelScope.Description || 'Enter Description'}}</pre></a>
+            <a editable-textarea="sidePanelScope.Description" e-rows="5" e-cols="50"><pre>{{sidePanelScope.Description || 'Enter Description'}}</pre></a>
             <br />
             <b>Total Hours:</b><br />
-            <p editable-number="currentOpenStory.Points">{{sidePanelScope.TotalHours || 'Enter Total Hours' }}</p>
+            <p editable-number="sidePanelScope.TotalHours">{{sidePanelScope.TotalHours || 'Enter Total Hours' }}</p>
             <br />
             <b>To Do Hours:</b><br />
-            <p editable-number="currentOpenStory.Points">{{sidePanelScope.ToDoHours || 'Enter To Do Hours' }}</p>
+            <p editable-number="sidePanelScope.ToDoHours">{{sidePanelScope.ToDoHours || 'Enter To Do Hours' }}</p>
             <br />
             <b>Owner:</b> <br />
-            <p editable-select="currentOpenStory.OwnerID" e-ng-options="u.UserID as u.Username for u in teamUsers">{{ sidePanelScope.OwnerID || 'Select the story Owner'}}</p>
+            <p editable-select="sidePanelScope.OwnerID" e-ng-options="u.UserID as u.Username for u in teamUsers">{{ sidePanelScope.OwnerID || 'Select the story Owner'}}</p>
             <br />
             <b>Blocked:</b> <input type="checkbox" ng-model="sidePanelScope.Blocked" ng-true-value="'Y'" ng-false-value="'N'" />
             <div ng-if="sidePanelScope.Blocked === 'Y'">
-                <a editable-textarea="currentOpenStory.BlockedText" e-rows="5" e-cols="50"><pre>{{sidePanelScope.BlockedText || 'Enter description of what is blocking the story'}}</pre></a>
+                <a editable-textarea="sidePanelScope.BlockedText" e-rows="5" e-cols="50"><pre>{{sidePanelScope.BlockedText || 'Enter description of what is blocking the story'}}</pre></a>
             </div>
+            <br />
             <button class="btn btn-success btn-lg" ng-click="saveChanges()">Save Changes</button>
         </div>
     </div>
