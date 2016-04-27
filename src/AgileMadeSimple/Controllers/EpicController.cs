@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using AgileMadeSimple.Models;
+using Microsoft.AspNet.Http;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,7 +19,11 @@ namespace AgileMadeSimple.Controllers
         {
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
-                return context.Epic.Select(s => s).ToList();
+                int[] userTeams = TeamModel.GetUserTeams(HttpContext.Session.GetInt32("UserID"));
+
+
+
+                return context.Epic.Where(e => userTeams.Contains(e.TeamID)).Select(s => s).ToList();
             }
         }
 
@@ -124,6 +129,19 @@ namespace AgileMadeSimple.Controllers
                 context.States.Remove(state);
 
                 return context.States.Where(s => s.Type == "Epic").OrderBy(s => s.Order).Select(s => s).ToList();
+            }
+        }
+
+        [HttpGet("CurrentSprint/{projectId}")]
+        public int? GetCurrentSprint(int projectId)
+        {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                DateTime currentDateTime = DateTime.Now;
+                return context.Sprint.Where(s => s.StartDate < currentDateTime 
+                                          && s.EndDate > currentDateTime)
+                              .Select(s => s.SprintID)
+                              .FirstOrDefault();
             }
         }
     }

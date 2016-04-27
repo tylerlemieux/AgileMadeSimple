@@ -23,10 +23,9 @@
                 <button class="btn btn-lg btn-success center-block" style="margin-top: 25px" ng-click="openAddProjectModal()"><span class="glyphicon glyphicon-plus-sign"></span> <br />Add New Project</button>
             </div>
         </div>
-    </div>
+    </div><!--
     <div class="row">
         <div class="col-md-12">
-            <!--Are to manage project states-->
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -45,7 +44,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div>-->
 </div>
 
 <script type="text/ng-template" id="addProjectModal.html">
@@ -55,6 +54,9 @@
     <div class="modal-body">
         <input class="form-control" type="text" placeholder="Project Name" ng-model="name" />
         <input class="form-control" type="text" placeholder="Description" ng-model="description" />
+        <select ng-model="teamId">
+            <option ng-repeat="team in teams" value="{{team.TeamID}}">{{team.Name}}</option>
+        </select>
         <!--TODO add team selection-->
     </div>
     <div class="modal-footer">

@@ -94,5 +94,18 @@ namespace AgileMadeSimple.Controllers
             }
         }
 
+        [HttpGet()]
+        public IEnumerable<UserVM> GetAllUsers()
+        {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                return context.User.Select(u => new UserVM {
+                    Name = u.Name,
+                    Email = u.Email,
+                    UserID = u.UserID,
+                    Username = u.Username}).ToArray();
+            }
+        }
+
     }
 }

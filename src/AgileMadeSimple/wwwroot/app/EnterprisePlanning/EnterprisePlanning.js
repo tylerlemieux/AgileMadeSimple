@@ -60,11 +60,22 @@
 
 }])
 .controller('AddProjectController', ['$scope', '$http', '$uibModalInstance', function ($scope, $http, $uibModalInstance) {
+    $scope.getTeams = function () {
+        $http.get('api/Team').then(function (response) {
+            $scope.teams = response.data;
+        }, function () {
+            //handle errors
+        });
+    };
+
+    $scope.getTeams();
+
+
     $scope.create = function () {
         var epic = {
             Name: $scope.name,
             Description: $scope.description,
-            TeamID: 1
+            TeamID: $scope.teamId
         };
 
         $http.post('api/Epic', epic).then(function (response) {

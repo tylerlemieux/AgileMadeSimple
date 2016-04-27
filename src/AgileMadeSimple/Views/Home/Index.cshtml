@@ -38,10 +38,12 @@
                     <li ng-if="User === null"><a href="#/Registration">Register</a></li>
                     <li ng-if="User === null"><a href="#/Login">Login</a></li>
 
-                    <li ng-if="User !== null"><a href="#/Team">Team</a></li>
-                    <li ng-if="User !== null"><a href="#/SprintWall">Sprint Wall</a></li>
-                    <li ng-if="User !== null"><a href="#/EnterprisePlanning">Enterprise</a></li>
-                    <li ng-if="User !== null"><a href="#/">Project Planning</a></li>
+                    <li ng-if="User !== null"><a href="#/TeamOptions">Team</a></li>
+                    <li ng-if="User !== null"><a href="#/EnterprisePlanning">Projects</a></li>
+                    
+                    <!--Project level navigation-->
+                    <li ng-if="User !== null && ProjectID != null"><a href="#/Backlog/{{ProjectID}}">Project Planning</a></li>
+                    <li ng-if="User !== null && ProjectID != null && CurrentSprintID != null"><a href="#/SprintWall/{{CurrentSprintID}}">Current Sprint Wall</a></li>
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -63,5 +65,6 @@
     <script src="~/app/EnterprisePlanning/EnterprisePlanning.js"></script>
     <script src="~/app/ProjectPlanning/Backlog.js"></script>
     <script src="~/app/SprintWall/sprintwall.js"></script>
+    <script src="~/app/Team/teamoptions.js"></script>
 </body>
 </html>
