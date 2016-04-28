@@ -38,8 +38,8 @@ function($routeProvider) {
         });
     };
 
-    $scope.addTeam = function () {
-        $http.post('api/Team/' + $scope.newTeamName).then(function (response) {
+    $scope.addTeam = function (name) {
+        $http.post('api/Team/' + name).then(function (response) {
             $scope.teams =response.data;
         });
     }

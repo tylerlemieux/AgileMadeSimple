@@ -58,6 +58,29 @@ namespace AgileMadeSimple.Controllers
 
         }
 
+        [HttpGet("Project/{projectId}")]
+        public IEnumerable<UserVM> GetProjectTeam(int projectId)
+        {
+            using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
+            {
+                var team =
+                    (from t in context.Team
+                     join e in context.Epic on t.TeamID equals e.TeamID
+                     join tu in context.TeamUser on t.TeamID equals tu.TeamID
+                     join u in context.User on tu.UserID equals u.UserID
+                     where e.EpicID == projectId
+                     select new UserVM
+                     {
+                        UserID = u.UserID,
+                        Username = u.Username,
+                        Email = u.Email,
+                        Name = u.Name
+                     }).ToArray();
+
+                return team;
+            }
+        }
+
         // POST api/values
         [HttpPost("Member/{teamId}/{username}")]
         public IEnumerable<TeamVM> Post(int teamId, string username)
@@ -182,6 +205,8 @@ namespace AgileMadeSimple.Controllers
                 bool userHasRights = TeamModel.UserHasRightsToTeam((int)userId, teamId);
                 if (userHasRights)
                 {
+                    var teamUsers = context.TeamUser.Where(t => t.TeamID == teamId).Select(s => s);
+                    context.TeamUser.RemoveRange(teamUsers);
                     Team team = context.Team.Where(t => t.TeamID == teamId).Select(s => s).First();
                     context.Team.Remove(team);
                     context.SaveChanges();

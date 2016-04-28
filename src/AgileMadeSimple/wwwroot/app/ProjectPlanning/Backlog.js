@@ -27,6 +27,12 @@
         });
     };
 
+    $scope.getTeam = function () {
+        $http.get('api/Team/Project/' + $scope.projectID).then(function (response) {
+            $scope.team = response.data;
+        });
+    };
+
     $scope.getSprints();
     $scope.getProjects();
 
