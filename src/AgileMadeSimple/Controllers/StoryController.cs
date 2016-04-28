@@ -76,7 +76,8 @@ namespace AgileMadeSimple.Controllers
             {
                 context.Update(story);
                 context.SaveChanges();
-                return context.Story.Where(s => s.EpicID == story.EpicID).ToList();
+                //return context.Story.Where(s => s.EpicID == story.EpicID).ToList();
+                return GetProjectStories(story.EpicID);
             }
         }
 

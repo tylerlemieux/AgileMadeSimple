@@ -68,7 +68,8 @@
             <p editable-number="currentOpenStory.Points">{{currentOpenStory.Points || 'Enter Story Points' }}</p>
             <br />
             <b>Owner:</b> <br />
-            <p editable-select="currentOpenStory.OwnerID" e-ng-options="u.UserID as u.Username for u in teamUsers">{{ currentOpenStory.OwnerID || 'Select the story Owner'}}</p>
+            <select ng-model="currentOpenStory.OwnerID" ng-options="u.UserID as u.Username for u in teamUsers" class="form-control"></select>
+            <!--<p editable-select="currentOpenStory.OwnerID" e-ng-options="u.UserID as u.Username for u in teamUsers">{{ showCurrentOwner(currentOpenStory.OwnerID) }}</p>-->
             <br />
             <b>Blocked:</b> <input type="checkbox" ng-model="currentOpenStory.Blocked" ng-true-value="'Y'" ng-false-value="'N'" />
             <div ng-if="currentOpenStory.Blocked === 'Y'">

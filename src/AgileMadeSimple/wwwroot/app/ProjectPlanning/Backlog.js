@@ -28,14 +28,14 @@
     };
 
     $scope.getTeam = function () {
-        $http.get('api/Team/Project/' + $scope.projectID).then(function (response) {
-            $scope.team = response.data;
+        $http.get('api/Team/Project/' + $scope.projectId).then(function (response) {
+            $scope.teamUsers = response.data;
         });
     };
 
     $scope.getSprints();
     $scope.getProjects();
-
+    $scope.getTeam();
 
     $scope.blankStory = {
         Name: null,
@@ -140,6 +140,17 @@
         }, function () {
 
         });
+    }
+
+    $scope.showCurrentOwner = function (userId) {
+        if (userId === null) return 'Select the story Owner';
+
+        angular.forEach($scope.teamUsers, function (user, index) {
+            if (user.UserID == userId) {
+                return user.Name;
+            }
+        });
+        return 'Select the story Owner';
     }
 }])
 .controller('AddSprintController', ['$scope', '$uibModalInstance', '$http', '$routeParams', function ($scope, $uibModalInstance, $http, $routeParams) {
