@@ -7,8 +7,8 @@ namespace AgileMadeSimple.Models
     {
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer(@"Data Source=Tyler-PC;Initial Catalog=AgileMadeSimple;integrated security=true;multipleactiveresultsets=true;");
-            //options.UseSqlServer(@"Server=tcp:tylerlemieux.database.windows.net,1433;Database=AgileMadeSimple;User ID=Tyler@tylerlemieux;Password=K33pd@t@s3cur3!;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            //options.UseSqlServer(@"Data Source=Tyler-PC;Initial Catalog=AgileMadeSimple;integrated security=true;multipleactiveresultsets=true;");
+            options.UseSqlServer(@"Server=tcp:tylerlemieux.database.windows.net,1433;Database=AgileMadeSimple;User ID=Tyler@tylerlemieux;Password=K33pd@t@s3cur3!;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
