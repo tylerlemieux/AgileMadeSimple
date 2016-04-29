@@ -12,6 +12,9 @@
     $scope.sidePanelType = null;
     $scope.sidePanelScope = null;
 
+    $scope.teamUsers = [];
+
+
     //$scope.taskTemplate = {
     //    Name: null,
     //    Description: null,
@@ -28,52 +31,10 @@
         $http.get('api/Task/Sprint/' + $routeParams.sprintId).then(function (response) {
             $scope.Sprint = response.data;
             //console.log($scope.Sprint)
+            $scope.getTeam();
             
         }, function (error) {
             console.log(error);
-            $scope.Sprint = {
-                Story: [
-                    {
-                        Name: "Story 1", Points: 8, Task: [
-                            {
-                                Name: "Task 1",
-                                TotalHours: 10,
-                                ToDoHours: 5
-                            },
-                            {
-                                Name: "Task 2",
-                                TotalHours: 1,
-                                ToDoHours: .5
-                            },
-                            {
-                                Name: "Task 3",
-                                TotalHours: 13,
-                                ToDoHours: 8
-                            }
-                        ]
-                    },
-                    {
-                        Name: "Story 2", Points: 8, Task: [
-                            {
-                                Name: "Task 4",
-                                TotalHours: 10,
-                                ToDoHours: 5
-                            },
-                            {
-                                Name: "Task 5",
-                                TotalHours: 1,
-                                ToDoHours: .5
-                            },
-                            {
-                                Name: "Task 6",
-                                TotalHours: 13,
-                                ToDoHours: 8
-                            }
-                        ]
-                    }
-                ]
-            }
-
         });
     };
 
@@ -123,7 +84,28 @@
 
         }
 
+        
 
         $scope.closeSidePanel();
     };
+
+    $scope.showOwner = function (userId) {
+        if (userId === null) return null;
+        console.log(userId);
+        angular.forEach($scope.teamUsers, function (user, index) {
+            if (user.UserID == userId) {
+                return user.Name;
+            }
+        });
+        return null;
+    }
+
+
+    $scope.getTeam = function () {
+        $http.get('api/Team/Project/' + $scope.Sprint.ProjectID).then(function (response) {
+            $scope.teamUsers = response.data;
+        });
+    };
+
+    
 }]);
