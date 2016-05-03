@@ -13,7 +13,7 @@
             <td><button class="btn btn-sm btn-success" ng-click="openSidePanel(null, 'task', story.StoryID)">Add Task</button></td>
             <td ng-click="openSidePanel(story, 'story')"></td>
             <td ng-click="openSidePanel(story, 'story')"></td>
-            <td ng-click="openSidePanel(story, 'story')">{{showOwner(story.OwnerID)}}</td>
+            <td ng-click="openSidePanel(story, 'story')">{{story.OwnerName}}</td>
             <td ng-click="openSidePanel(story, 'story')">
                 <div class="tag" ng-repeat="tag in story.Tags">
                     {{tag}}

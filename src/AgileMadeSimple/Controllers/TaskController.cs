@@ -159,8 +159,12 @@ namespace AgileMadeSimple.Controllers
                 }).First();
 
 
-            sprint.Story = context.Story.Where(s => s.SprintID == sprintId)
-                .Select(s => new StoryVM {
+            sprint.Story = 
+                (from s in context.Story
+                 join u in context.User on s.OwnerID equals u.UserID
+                where s.SprintID == sprintId
+                select new StoryVM
+                {
                     SprintID = s.SprintID,
                     AcceptanceCriteria = s.AcceptanceCriteria,
                     StateID = s.StateID,
@@ -171,10 +175,11 @@ namespace AgileMadeSimple.Controllers
                     EpicID = s.EpicID,
                     FeatureID = s.FeatureID,
                     Name = s.Name,
-                    Order = s.Order, 
+                    Order = s.Order,
                     OwnerID = s.OwnerID,
+                    OwnerName = u.Name,
                     Points = s.Points,
-                    Tags = 
+                    Tags =
                         (from t in context.Tag
                          join st in context.StoryTag on t.TagID equals st.TagID
                          where st.StoryID == s.StoryID

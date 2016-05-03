@@ -17,6 +17,7 @@ namespace AgileMadeSimple.Models.ViewModels
         public string Name { get; set; }
         public int? Order { get; set; }
         public int? OwnerID { get; set; }
+        public string OwnerName { get; set; }
         public int? Points { get; set; }
         public int? SprintID { get; set; }
         public int StateID { get; set; }
