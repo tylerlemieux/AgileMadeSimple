@@ -1,4 +1,4 @@
-﻿<table class="table table-striped" style="clear: both; align-self: ">
+﻿<table class="table table-striped">
     <tr>
         <th>Story</th>
         <th>Task</th>
@@ -14,7 +14,12 @@
             <td ng-click="openSidePanel(story, 'story')"></td>
             <td ng-click="openSidePanel(story, 'story')"></td>
             <td ng-click="openSidePanel(story, 'story')">{{showOwner(story.OwnerID)}}</td>
-            <td ng-click="openSidePanel(story, 'story')">Tags</td>
+            <td ng-click="openSidePanel(story, 'story')">
+                <div class="tag" ng-repeat="tag in story.Tags">
+                    {{tag}}
+                </div>
+                <div class="end-tags"></div>
+            </td>
         </tr>
         <tr ng-repeat="task in story.Task" ng-click="openSidePanel(task, 'task', story.StoryID)">
             <td></td>
@@ -22,7 +27,12 @@
             <td>{{task.TotalHours}}</td>
             <td>{{task.ToDoHours}}</td>
             <td>{{showOwner(task.OwnerID)}}</td>
-            <td>Tags</td>
+            <td>
+                <div class="tag" ng-repeat="tag in task.Tags">
+                    {{tag}}
+                </div>
+                <div class="end-tags"></div>
+            </td>
         </tr>
         <tr ng-repeat-end=""></tr>
     <tbody>
@@ -94,7 +104,7 @@
             <div class="end-tags"></div>
 
             <input class="form-control" ng-model="tagToAdd" /><br />
-            <button class="btn btn-primary" ng-click="addTag('task', sidePanelScope.TaskID, tagToAdd)" ng-disabled="tagToAdd==undefined || tagToAdd==null">Add Tag</button>
+            <button class="btn btn-primary" ng-click="addTag('task', sidePanelScope.TaskID, tagToAdd)" ng-disabled="tagToAdd==undefined || tagToAdd==null || sidePanelScope.TaskID==null">Add Tag</button>
         </div>
     </div>
 </div>
