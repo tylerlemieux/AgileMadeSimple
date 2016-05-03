@@ -18,6 +18,9 @@ namespace AgileMadeSimple.Controllers
         {
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
+                //TODO... make this a group by and order it by the most 
+                //instances of the tag to limit number sent for performance
+                //Also would be nice to have this be paginated
                 return context.Tag.Select(s => s.Name).ToArray();
             }
         }

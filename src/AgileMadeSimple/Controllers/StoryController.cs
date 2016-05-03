@@ -96,10 +96,7 @@ namespace AgileMadeSimple.Controllers
         {
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
-                Tag tag = TagHandler.GetTagID(tagName);
-                StoryTag storyTag = new StoryTag();
-                storyTag.StoryID = storyId;
-                storyTag.TagID = tag.TagID;
+                Tag tag = TagHandler.CreateOrEditTag(tagName, TagHandler.TagType.STORY, storyId);
             }
         }
 

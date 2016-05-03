@@ -107,5 +107,42 @@
         });
     };
 
+    $scope.getAllTags = function () {
+        $http.get('api/Tag').then(function (response) {
+            $scope.allTags = response.data;
+        });
+    };
+    //do this after everything else
+    $scope.getAllTags();
+
+    $scope.addTag = function (type, id, tagName) {
+        if (type === 'task') {
+            $http.put('api/Task/AddTag/' + id + '/' + tagName).then(function (response) {
+                $scope.sidePanelScope.Tags.push(tagName);
+            });
+            return;
+        } else if (type === 'story') {
+            $http.put('api/Story/AddTag/' + id + '/' + tagName).then(function (response) {
+                $scope.sidePanelScope.Tags.push(tagName);
+            });
+            return;
+        }
+        throw("Invalid tag type: " + type);
+    }
+
+    $scope.removeTag = function (type, id, tagName, index) {
+        if (type === 'task') {
+            $http.delete('api/Task/RemoveTag/' + id + '/' + tagName).then(function (response) {
+                $scope.sidePanelScope.Tags.splice(index, 1);
+            });
+            return;
+        } else if (type === 'story') {
+            $http.delete('api/Story/RemoveTag/' + id + '/' + tagName).then(function (response) {
+                $scope.sidePanelScope.Tags.splice(index, 1);
+            });
+            return;
+        }
+        throw ("Invalid tag type: " + type);
+    }
     
 }]);

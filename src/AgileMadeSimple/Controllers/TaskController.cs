@@ -73,10 +73,7 @@ namespace AgileMadeSimple.Controllers
         {
             using (AgileMadeSimpleContext context = new AgileMadeSimpleContext())
             {
-                Tag tag = TagHandler.GetTagID(tagName);
-                TaskTag taskTag = new TaskTag();
-                taskTag.TaskID = taskId;
-                taskTag.TagID = tag.TagID;
+                Tag tag = TagHandler.CreateOrEditTag(tagName, TagHandler.TagType.TASK, taskId);
             }
         }
 
@@ -179,7 +176,7 @@ namespace AgileMadeSimple.Controllers
                     Points = s.Points,
                     Tags = 
                         (from t in context.Tag
-                         join st in context.StoryTag on t.TagID equals st.StoryTagID
+                         join st in context.StoryTag on t.TagID equals st.TagID
                          where st.StoryID == s.StoryID
                          select t.Name).ToArray()
                 }).ToArray();

@@ -52,6 +52,16 @@
             </div>
             <br />
             <button class="btn btn-success btn-lg" ng-click="saveChanges()">Save Changes</button>
+
+            <br /><br />
+            <b>Tags:</b><br />
+            <div class="tag" ng-repeat="tag in sidePanelScope.Tags">
+                {{tag}} <a ng-click="removeTag('story', sidePanelScope.StoryID, tag, $index)"><span class="glyphicon glyphicon-trash"></span></a>
+            </div>
+            <div class="end-tags"></div>
+
+            <input class="form-control" ng-model="tagToAdd" /><br />
+            <button class="btn btn-primary" ng-click="addTag('story', sidePanelScope.StoryID, tagToAdd)" ng-disabled="tagToAdd==undefined || tagToAdd==null">Add Tag</button>
         </div>
         <div ng-if="sidePanelType=='task'">
             <button class="btn btn-danger" ng-click="closeSidePanel()">Close</button>
@@ -75,11 +85,51 @@
             </div>
             <br />
             <button class="btn btn-success btn-lg" ng-click="saveChanges()">Save Changes</button>
+
+            <br /><br />
+            <b>Tags:</b><br />
+            <div class="tag" ng-repeat="tag in sidePanelScope.Tags">
+                {{tag}} <a ng-click="removeTag('task', sidePanelScope.StoryID, tag, $index)"><span class="glyphicon glyphicon-trash"></span></a>
+            </div>
+            <div class="end-tags"></div>
+
+            <input class="form-control" ng-model="tagToAdd" /><br />
+            <button class="btn btn-primary" ng-click="addTag('task', sidePanelScope.TaskID, tagToAdd)" ng-disabled="tagToAdd==undefined || tagToAdd==null">Add Tag</button>
         </div>
     </div>
 </div>
 
 <style>
+    .tag {
+        float: left;
+        background-color: azure;
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        margin-top: 1px;
+        margin-left: 1px;
+        margin-right: 1px;
+        margin-bottom: 1px;
+        color: deepskyblue;
+        border: solid 1px lavender;
+        border-radius: 2px;
+        font-size: 11px;
+    }
+
+        .tag a {
+            color: deepskyblue;
+        }
+
+            .tag a:hover {
+                color: deepskyblue;
+                text-decoration: none;
+            }
+
+    .end-tags {
+        clear: both;
+    }
+
     .ng-pageslide {
         background: #eee;
         padding-top: 55px;
