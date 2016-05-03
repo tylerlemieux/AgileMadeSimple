@@ -17,5 +17,6 @@ namespace AgileMadeSimple.Models.ViewModels
         public int StoryID { get; set; }
         public decimal? ToDoHours { get; set; }
         public decimal? TotalHours { get; set; }
+        public IEnumerable<string> Tags { get; set; }
     }
 }

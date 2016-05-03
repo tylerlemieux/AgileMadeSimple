@@ -176,7 +176,12 @@ namespace AgileMadeSimple.Controllers
                     Name = s.Name,
                     Order = s.Order, 
                     OwnerID = s.OwnerID,
-                    Points = s.Points
+                    Points = s.Points,
+                    Tags = 
+                        (from t in context.Tag
+                         join st in context.StoryTag on t.TagID equals st.StoryTagID
+                         where st.StoryID == s.StoryID
+                         select t.Name).ToArray()
                 }).ToArray();
 
             foreach(var story in sprint.Story)
@@ -192,7 +197,11 @@ namespace AgileMadeSimple.Controllers
                         Name = t.Name, 
                         TaskID = t.TaskID,
                         ToDoHours = t.ToDoHours,
-                        TotalHours = t.TotalHours
+                        TotalHours = t.TotalHours,
+                        Tags = (from tag in context.Tag
+                         join tt in context.TaskTag on tag.TagID equals tt.TagID
+                         where tt.TaskID == t.TaskID
+                         select tag.Name).ToArray()
                     }).ToArray();
             }
 

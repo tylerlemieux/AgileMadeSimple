@@ -20,6 +20,7 @@ namespace AgileMadeSimple.Models.ViewModels
         public int? Points { get; set; }
         public int? SprintID { get; set; }
         public int StateID { get; set; }
+        public IEnumerable<string> Tags { get; set; }
         public IEnumerable<TaskVM> Task { get; set; }
     }
 }
